@@ -2,7 +2,7 @@ package com.company;
 
 public final class Playlist {
 
-    public static final String[] arraySongs = new String[]{
+    public static String[] arraySongs = new String[]{
             "Wonderful Life - Simth & Burrows",
             "Iota - Killstation",
             "We Did It!! - Grandson",
