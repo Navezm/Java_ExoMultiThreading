@@ -19,8 +19,8 @@ public class Engine implements Runnable {
     @Override
     public void run() {
         try {
-            int timeSleep = rand.nextInt(4) + 2;
-            Thread.sleep(Long.parseLong((long)timeSleep+"000"));
+            int timeSleep = rand.nextInt(4001) + 2000;
+            Thread.sleep(timeSleep);
             System.out.println("Engine created");
             Thread.currentThread().interrupt();
         } catch (InterruptedException e) {
