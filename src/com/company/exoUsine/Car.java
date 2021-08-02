@@ -27,6 +27,7 @@ public class Car implements Runnable {
     @Override
     public void run() {
         try {
+            System.out.println("Beginning of the creation");
             Thread.sleep(2000);
             System.out.println(this);
             System.out.println("Car created");

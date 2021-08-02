@@ -1,6 +1,11 @@
 package com.company.exoUsine;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Factory{
+
+    static List<Car> carList = new ArrayList<>();
 
     static void createCar(String color, String securityScore, double power) {
         Carcass carcass = new Carcass(securityScore);
@@ -13,10 +18,11 @@ public class Factory{
 
         Thread timer = new Thread(() -> {
             try {
-                System.out.println("In 5 sec it starts");
-                Thread.sleep(5000);
+                System.out.println("In 5 sec we start to create the car");
+                Thread.currentThread().join(5000);
                 if (c.isInterrupted() && e.isInterrupted() && b.isInterrupted()) {
                     Car car = new Car(engine, bodywork, carcass);
+                    carList.add(car);
                     Thread tCar = new Thread(car);
                     tCar.start();
                 } else {
@@ -34,5 +40,4 @@ public class Factory{
         timer.start();
 
     }
-
 }
