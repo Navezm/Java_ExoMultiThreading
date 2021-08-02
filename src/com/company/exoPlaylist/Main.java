@@ -1,4 +1,4 @@
-package com.company;
+package com.company.exoPlaylist;
 
 import java.util.Scanner;
 
@@ -17,21 +17,22 @@ public class Main {
         do {
             String command = new Scanner(System.in).nextLine();
 
-            System.out.println(command);
             switch (command) {
                 case "reset":
-                    playlist.interrupt();
                     index = 0;
-                    playlist = new Thread(play());
-                    playlist.start();
                     break;
                 case "pause":
                     playlist.interrupt();
                     break;
                 case "play":
-                    playlist = new Thread(play());
-                    playlist.start();
+                    if (playlist.getState() == Thread.State.TERMINATED) {
+                        playlist = new Thread(play());
+                        playlist.start();
+                    } else {
+                        System.out.println("Il faut pause avant play");
+                    }
                     break;
+                default:
                 case "stop":
                     playlist.interrupt();
                     boucle = false;
@@ -57,5 +58,21 @@ public class Main {
                 }
             }
         };
+    }
+
+    static void action() {
+        while (true) {
+            try {
+                Thread.sleep(5000);
+                System.out.println("NOW PLAYING -> " + Playlist.arraySongs[index]);
+            } catch (InterruptedException e) {
+                index--;
+                return;
+            }
+            index++;
+            if (index > 9) {
+                index = 0;
+            }
+        }
     }
 }
