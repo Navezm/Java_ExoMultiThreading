@@ -8,6 +8,7 @@ public class Etrennes implements Runnable {
 
     private int quantiteArgent;
     private int interval;
+    private boolean enCours = true;
 
     public Etrennes() {
         this.quantiteArgent = rand.nextInt(51) + 15;
@@ -34,6 +35,7 @@ public class Etrennes implements Runnable {
         return "Etrennes{" +
                 "Argent = " + quantiteArgent +
                 ", Récurence = " + interval +
+                ", En cours = " + enCours +
                 '}';
     }
 
@@ -47,7 +49,8 @@ public class Etrennes implements Runnable {
                 System.out.println(this.getQuantiteArgent() + "€ ont été rajouté à la tirelire");
             }
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            this.enCours = false;
+            return;
         }
     }
 }

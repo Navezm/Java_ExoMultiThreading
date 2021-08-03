@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 public class Menu {
 
+    public static ThreadGroup etrennesGroup = new ThreadGroup("Group1");
+
     public static void launch() {
 
         Tirelire tirelire = new Tirelire();
@@ -12,8 +14,8 @@ public class Menu {
         Etrennes etrennes1 = new Etrennes();
         Etrennes etrennes2 = new Etrennes();
 
-        Thread t1 = new Thread(etrennes1);
-        Thread t2 = new Thread(etrennes2);
+        Thread t1 = new Thread(etrennesGroup, etrennes1);
+        Thread t2 = new Thread(etrennesGroup, etrennes2);
 
         t1.start();
         t2.start();
@@ -43,11 +45,11 @@ public class Menu {
                     creerEtrenne();
                     break;
                 case "4":
-//                    stopperEtrennes();
+                    stopperEtrennes();
                     break;
                 case "5":
                     System.out.println("Le programme va s'arrêter");
-//                    stopperEtrennes();
+                    stopperEtrennes();
                     break;
                 default:
                     System.out.println("Cette commande n'existe pas essaie encore");
@@ -65,7 +67,11 @@ public class Menu {
         int interval = Integer.parseInt(scan.nextLine() + "000");
 
         Etrennes newEtrenne = new Etrennes(montant, interval);
-        Thread newThread = new Thread(newEtrenne);
+        Thread newThread = new Thread(etrennesGroup, newEtrenne);
         newThread.start();
+    }
+
+    public static void stopperEtrennes() {
+        etrennesGroup.interrupt();
     }
 }
