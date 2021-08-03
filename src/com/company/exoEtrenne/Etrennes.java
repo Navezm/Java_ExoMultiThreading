@@ -6,8 +6,20 @@ public class Etrennes implements Runnable {
 
     Random rand = new Random();
 
-    private int quantiteArgent = rand.nextInt(51) + 15;
-    private int interval = rand.nextInt(10001) + 3000;
+    private int quantiteArgent;
+    private int interval;
+
+    public Etrennes() {
+        this.quantiteArgent = rand.nextInt(51) + 15;
+        this.interval = rand.nextInt(10001) + 3000;
+        Tirelire.setListEtrennes(this);
+    }
+
+    public Etrennes(int quantiteArgent, int interval) {
+        this.quantiteArgent = quantiteArgent;
+        this.interval = interval;
+        Tirelire.setListEtrennes(this);
+    }
 
     public int getQuantiteArgent() {
         return quantiteArgent;
@@ -18,12 +30,22 @@ public class Etrennes implements Runnable {
     }
 
     @Override
+    public String toString() {
+        return "Etrennes{" +
+                "Argent = " + quantiteArgent +
+                ", Récurence = " + interval +
+                '}';
+    }
+
+    @Override
     public void run() {
         try {
-            Thread.sleep(this.getInterval());
-            Tirelire.setSolde(this.getQuantiteArgent());
-            Tirelire.setNbrEtrenneRecue(1);
-            System.out.println(this.getQuantiteArgent() + " a été rajouté à la tirelire");
+            while (true) {
+                Thread.sleep(this.getInterval());
+                Tirelire.setSolde(this.getQuantiteArgent());
+                Tirelire.setNbrEtrenneRecue();
+                System.out.println(this.getQuantiteArgent() + "€ ont été rajouté à la tirelire");
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
