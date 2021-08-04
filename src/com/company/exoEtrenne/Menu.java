@@ -9,6 +9,7 @@ public class Menu {
 
     public static void launch() {
 
+        // Rajouts de deux étrennes fictives
         Etrennes etrennes1 = new Etrennes();
         Etrennes etrennes2 = new Etrennes();
 
@@ -18,10 +19,12 @@ public class Menu {
         t1.start();
         t2.start();
 
+        // Début menu
         Scanner scan = new Scanner(System.in);
         String cmd = "";
 
         do {
+            System.out.println();
             System.out.println("Bienvenue dans le menu de ta tirelire ! Tu peux trouver différentes options pour intéragir avec tes étrennes et ta tirelire :");
             System.out.println("""
                     1. Vérifier la quantité d'argent
@@ -91,7 +94,7 @@ public class Menu {
             thread.interrupt();
             System.out.println("Le thread est correctement arrêté");
         } else {
-            System.out.println("Cet ID n'existe pas");
+            System.out.println("Cet ID n'existe pas ou ce Thread n'est pas actif");
         }
     }
 }
