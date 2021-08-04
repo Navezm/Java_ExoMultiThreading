@@ -9,8 +9,6 @@ public class Menu {
 
     public static void launch() {
 
-        Tirelire tirelire = new Tirelire();
-
         Etrennes etrennes1 = new Etrennes();
         Etrennes etrennes2 = new Etrennes();
 
@@ -30,16 +28,17 @@ public class Menu {
                     2. Voir les étrennes déjà en places
                     3. Ajouter une étrennes
                     4. Stopper les étrennes
-                    5. Arrêter le programme
+                    5. Stopper une étrenne en particulier
+                    6. Arrêter le programme
                     """);
             cmd = scan.nextLine();
             switch (cmd){
                 case "1":
-                    System.out.println("Tu possèdes actuellement : " + tirelire.getSolde() + "€");
+                    System.out.println("Tu possèdes actuellement : " + Tirelire.getSolde() + "€");
                     break;
                 case "2":
                     System.out.println(Tirelire.getListEtrennes());
-                    System.out.println("Tu as déjà reçu " + Tirelire.nbrEtrenneRecue + " étrenne(s)");
+                    System.out.println("Tu as déjà reçu " + Tirelire.getNbrEtrenneRecue() + " étrenne(s)");
                     break;
                 case "3":
                     creerEtrenne();
@@ -48,6 +47,9 @@ public class Menu {
                     stopperEtrennes();
                     break;
                 case "5":
+                    stopperUneEtrenne();
+                    break;
+                case "6":
                     System.out.println("Le programme va s'arrêter");
                     stopperEtrennes();
                     break;
@@ -55,7 +57,7 @@ public class Menu {
                     System.out.println("Cette commande n'existe pas essaie encore");
                     break;
             }
-        } while (!Objects.equals(cmd, "5"));
+        } while (!Objects.equals(cmd, "6"));
     }
 
     public static void creerEtrenne(){
@@ -73,5 +75,23 @@ public class Menu {
 
     public static void stopperEtrennes() {
         etrennesGroup.interrupt();
+    }
+
+    public static void stopperUneEtrenne() {
+        Scanner scan = new Scanner(System.in);
+
+        System.out.println("Quel est l'id de l'étrenne que tu veux stopper");
+        int id = Integer.parseInt(scan.nextLine());
+
+        Thread[] allActifThread = new Thread[etrennesGroup.activeCount()];
+        etrennesGroup.enumerate(allActifThread);
+
+        if (id < allActifThread.length) {
+            Thread thread = allActifThread[id];
+            thread.interrupt();
+            System.out.println("Le thread est correctement arrêté");
+        } else {
+            System.out.println("Cet ID n'existe pas");
+        }
     }
 }

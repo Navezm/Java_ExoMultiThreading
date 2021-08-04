@@ -10,7 +10,7 @@ public class Tirelire {
 
     public static List<Etrennes> listEtrennes = new ArrayList<>();
 
-    public int getSolde() {
+    public static int getSolde() {
         return solde;
     }
 
@@ -18,7 +18,7 @@ public class Tirelire {
         Tirelire.solde += solde;
     }
 
-    public int getNbrEtrenneRecue() {
+    public static int getNbrEtrenneRecue() {
         return nbrEtrenneRecue;
     }
 
