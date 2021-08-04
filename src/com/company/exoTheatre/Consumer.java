@@ -13,8 +13,8 @@ public class Consumer extends Thread {
         TACITURNE
     }
 
-    public Consumer(SentenceQueue sentence, String name) {
-        super("ACTOR " + name);
+    public Consumer(SentenceQueue sentence, String name, ThreadGroup group) {
+        super(group, name);
         Random rand = new Random();
         this.sentence = sentence;
         Caract car;

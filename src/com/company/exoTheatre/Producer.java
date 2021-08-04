@@ -59,8 +59,8 @@ public class Producer extends Thread {
             "dans la maison de son père"
     };
 
-    public Producer(String name, SentenceQueue sentence) {
-        super(name);
+    public Producer(String name, SentenceQueue sentence, ThreadGroup group) {
+        super(group, name);
         this.sentence = sentence;
     }
 

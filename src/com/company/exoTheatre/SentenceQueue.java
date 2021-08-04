@@ -12,7 +12,7 @@ public class SentenceQueue {
              while (list.size() >= 10) {
                  try {
                      wait();
-                 } catch (InterruptedException e) {
+                 } catch (InterruptedException e) {                             // Si on enlève le if ça va fonctionner pareil, juste on n'aura pas de message avant la pause
                      return;
                  }
              }
