@@ -1,11 +1,14 @@
 package com.company.exoEtrenne;
 
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class Menu {
 
     public static ThreadGroup etrennesGroup = new ThreadGroup("Group1");
+
+    static Scanner scan = new Scanner(System.in);
 
     public static void launch() {
 
@@ -20,7 +23,6 @@ public class Menu {
         t2.start();
 
         // Début menu
-        Scanner scan = new Scanner(System.in);
         String cmd = "";
 
         do {
@@ -64,8 +66,6 @@ public class Menu {
     }
 
     public static void creerEtrenne(){
-        Scanner scan = new Scanner(System.in);
-
         System.out.println("Tu peux ajouter une étrenne, il faut spécifier son montant :");
         int montant = Integer.parseInt(scan.nextLine());
         System.out.println("Maintenant la récurence en secondes :");
@@ -81,17 +81,16 @@ public class Menu {
     }
 
     public static void stopperUneEtrenne() {
-        Scanner scan = new Scanner(System.in);
+        Thread[] allActifThread = new Thread[etrennesGroup.activeCount()];
+        etrennesGroup.enumerate(allActifThread);
 
         System.out.println("Quel est l'id de l'étrenne que tu veux stopper");
         int id = Integer.parseInt(scan.nextLine());
 
-        Thread[] allActifThread = new Thread[etrennesGroup.activeCount()];
-        etrennesGroup.enumerate(allActifThread);
-
         if (id < allActifThread.length) {
             Thread thread = allActifThread[id];
             thread.interrupt();
+            Tirelire.listEtrennes.remove(id);
             System.out.println("Le thread est correctement arrêté");
         } else {
             System.out.println("Cet ID n'existe pas ou ce Thread n'est pas actif");
